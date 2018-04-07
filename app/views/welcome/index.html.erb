@@ -1,7 +1,23 @@
 <% if logged_in? %>
-  <h1>Welcome to Instagram Lite</h1>
-  <p>You are logged in!</p>
+  <h1>Welcome to Instagram <%=current_user.full_name%></h1>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <%= render 'posts/form', post: @post %>
+    </div>
+  </div>
   <br>
+  <div class="row">
+    <div class="col-lg-6 offset-lg-3">
+      <% if @posts.blank? %>
+        <p class="text-center">You haven't uploaded any images yet!</p>
+      <% else %>
+        <% @posts.each do |post| %>
+          <%= render 'posts/post', post: post %>
+          <br>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 <% else %>
   <div class="row">
     <div class="col-lg-6 offset-lg-3">

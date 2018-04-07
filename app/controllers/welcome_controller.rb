@@ -1,7 +1,9 @@
 class WelcomeController < ApplicationController
+
   def index
-  	@name = "not logged in"
-  	return unless logged_in?
-  	@name = current_user.full_name
+  	@post = Post.new
+    return unless logged_in?
+    @posts = Post.where(user: current_user.friends).or(Post.where(user: current_user)).order(created_at: :desc)
   end
+
 end

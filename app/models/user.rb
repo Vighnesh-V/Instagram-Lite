@@ -11,7 +11,7 @@ class User < ApplicationRecord
     @password = Password.create(new_password)
     self.password_hash = @password
   end
-
+  has_many :posts, dependent: :destroy
   has_many :friendships, dependent: :destroy
   has_many :friends,
 	  -> { where(friendships: {state: 'accepted'}) }, through: :friendships

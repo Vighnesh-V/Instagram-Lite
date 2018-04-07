@@ -15,10 +15,6 @@
   <%= @user.email %>
 </p>
 
-<p>
-  <strong>Password hash:</strong>
-  <%= @user.password_hash %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to_if current_user == @user, "Edit", edit_user_path(@user)%>
+|
 <%= link_to 'Back', users_path %>

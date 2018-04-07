@@ -11,14 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :likes %>
-    <%= form.number_field :likes, id: :post_likes %>
+  <div class = "field form-group">
+    <%=form.label :caption%>
+    <%=form.text_field :caption, id: :post_caption, class: 'form-control' %>
   </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, id: :post_user_id %>
+  <div class = "field form-group">
+    <%= form.file_field :image, as: :post_image, class: 'form-control' %>
   </div>
 
   <div class="actions">

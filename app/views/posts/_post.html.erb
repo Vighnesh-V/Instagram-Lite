@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="card-body">
+    <span class="card-title">
+      <strong><%= link_to post.user.full_name, post.user %></strong>
+    </span>
+    <br>
+    
+    <strong class="card-text"> <%= post.caption %></strong>
+    <%= image_tag post.image.url(:medium) %>
+    <small class="card-subtitle text-muted">Updated <%= time_ago_in_words(post.updated_at) %> ago</small>
+    <% if current_user == post.user %>
+      <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' %>
+    <% end %>
+  </div>
+</div>
