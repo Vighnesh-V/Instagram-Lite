@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+ $theme-colors: (
+  "primary": #000000
+);
+
+$body-bg: #e9ebee;
+
+@import "bootstrap";
