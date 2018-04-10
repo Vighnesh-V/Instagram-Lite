@@ -1,5 +1,19 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :like, :unlike, :new_comment]
+
+
+  def new_comment
+    @comment = @post.comments.new(user: current_user, message: comment_params[:message])
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to root_path, notice: 'Comment was successfully created.' }
+        format.json { render :show, status: :created, location: @comment }
+      else
+        format.html { render :new }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # GET /posts
   # GET /posts.json
@@ -21,6 +35,16 @@ class PostsController < ApplicationController
   def edit
   end
 
+  #POST/ Patch : /posts/1/like_post
+  def like
+    @post.like_post(current_user)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def unlike
+    @post.unlike_post(current_user)
+    redirect_back(fallback_location: root_path)
+  end
   # POST /posts
   # POST /posts.json
   def create
@@ -55,12 +79,16 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
+
+    def comment_params
+      params.require(:comment).permit(:message)
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_post

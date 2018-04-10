@@ -1,15 +1,39 @@
 <div class="card">
-  <div class="card-body">
-    <span class="card-title">
-      <strong><%= link_to post.user.full_name, post.user %></strong>
-    </span>
-    <br>
-    
-    <strong class="card-text"> <%= post.caption %></strong>
-    <%= image_tag post.image.url(:medium) %>
-    <small class="card-subtitle text-muted">Updated <%= time_ago_in_words(post.updated_at) %> ago</small>
-    <% if current_user == post.user %>
-      <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' %>
-    <% end %>
+  <div class = "card-body">
+    <%= image_tag post.image.url(:medium)%>
   </div>
+  
+  <span class="card-title">
+      <strong><%= link_to post.user.full_name, post.user %> | <%= post.caption %></strong>
+  </span>   
+
+  <h2>This has <%=Userlike.where(post: post, state: 'liked').size%> likes</h2>
+  <small class="card-subtitle text-muted">Updated <%= time_ago_in_words(post.updated_at) %> ago |
+  <%= link_to_if current_user == post.user, 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' %>
+  </small>
+
+  <% if post.comments.empty? %> 
+    <h3>No comments yet. Add one!</h3>
+<%else%>
+   <% post.comments.each do |comment| %>
+     <strong><%=comment.message%> from <%=comment.user.full_name%> 
+
+     <%if comment.user == current_user%>
+      <strong>|</strong><%= link_to ' Delete Comment', "/comments/#{comment.id}", method: :delete, data: {confirm: 'Are you sure?' }%>
+     <%end%>
+
+     </strong>  
+   <% end %>
+ <%end%>
+ 
+
+  <%= render 'comments/form', :locals => {:post => post, :comment => Comment.new}%>
+
+  <small class = "card-subtitle text-muted">
+  	<% if post.user_liked_post(current_user) %>
+  		<%= link_to 'Unlike', unlike_post_path(post), method: :patch%>
+  	<% else %>
+  		<%= link_to 'Like', like_post_path(post), method: :patch%>
+  	<% end%> 
+  </small>
 </div>

@@ -1,0 +1,22 @@
+<%= form_with(model: locals[:comment], url: new_comment_post_path(locals[:post]), locals: true) do |form| %>
+  <% if locals[:comment].errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(locals[:comment].errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+      <% locals[:comment].errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :message %>
+    <%= form.text_field :message, id: :comment_message %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

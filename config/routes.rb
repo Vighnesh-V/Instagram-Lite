@@ -1,9 +1,18 @@
 Rails.application.routes.draw do
-  resources :posts
   root 'welcome#index'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  get '/posts/:id', to: 'posts#show'
+  delete '/comments/:id', to: 'comments#destroy'
+  resources :posts do
+    member do
+      patch 'like'
+      patch 'unlike'
+      post 'new_comment'
+    end
+  end
+  
   get '/friend_requests', to: 'users#friend_requests'
   resources :users do
     member do
