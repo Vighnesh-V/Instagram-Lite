@@ -15,9 +15,35 @@
  */
 
  $theme-colors: (
-  "primary": #000000
+  "primary": #F08080
 );
 
-$body-bg: #e9ebee;
+$body-bg: #FAFAFA;
 
 @import "bootstrap";
+
+
+.nav-item {
+  font-size: 13px
+}
+
+.card {
+	background-color: #FFFFFF
+}
+
+.like-display {
+	font-size: 20px
+}
+
+
+
+.comment_post {
+	padding: 0;
+	background: none;
+	border: none;
+	border-top: solid thin #efefef;
+}
+
+.header-icon {
+	font-size: 40px
+}

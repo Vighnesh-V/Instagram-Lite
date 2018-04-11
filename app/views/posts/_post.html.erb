@@ -1,39 +1,85 @@
-<div class="card">
-  <div class = "card-body">
-    <%= image_tag post.image.url(:medium)%>
-  </div>
-  
-  <span class="card-title">
-      <strong><%= link_to post.user.full_name, post.user %> | <%= post.caption %></strong>
-  </span>   
+<div class="card" style="width: 35rem;">
 
-  <h2>This has <%=Userlike.where(post: post, state: 'liked').size%> likes</h2>
-  <small class="card-subtitle text-muted">Updated <%= time_ago_in_words(post.updated_at) %> ago |
-  <%= link_to_if current_user == post.user, 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' %>
+  <span class="card-title">
+     <strong><%= link_to post.user.full_name, post.user %></strong>
+  </span>  
+
+
+    <%= image_tag post.image.url(:medium), class: 'card-img display'%>
+
+  
+  
+
+    <div class = "col-md-11">
+      <h2 class = 'like-display'>
+    <small class = "card-subtitle text-muted">
+    <% if post.user_liked_post(current_user) %>
+      <%= link_to unlike_post_path(post), method: :patch do%>
+        <%= image_tag 'ios-heart.svg', width: 30, height: 30, alt: 'send us your data please'%>
+      <%end%>
+    <% else %>
+      <%= link_to like_post_path(post), method: :patch do%>
+        <%= image_tag 'ios-heart-outline.svg', width: 30, height: 30, alt: 'send us your data please'%>
+      <%end%>
+    <% end%> 
+  </small>
+    
+  </h2>
+    </div>
+
+  <div class = "col-md-1">
+    
+  </div>
+
+  <div class = "col-md-11">
+      <%if Userlike.where(post: post, state: 'liked').size == 1%>
+        <strong><%=Userlike.where(post: post, state: 'liked').size%> like</strong>
+      <% else%>
+      <strong><%=Userlike.where(post: post, state: 'liked').size%> likes</strong>
+      <%end%>  
+  </div>
+
+  <div class = "col-md-1">
+    
+    </div>
+
+    <div class = "col-md-11">
+      <small class="card-subtitle text-muted">Updated <%= time_ago_in_words(post.updated_at) %> ago |
+  <% if current_user == post.user %>
+    <%= link_to post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' do%>
+      <%= image_tag 'ios-trash-outline.svg', width: 30, height: 30, alt: 'send us your data please'%>
+    <%end%>
+  <% end %>
   </small>
 
-  <% if post.comments.empty? %> 
-    <h3>No comments yet. Add one!</h3>
-<%else%>
-   <% post.comments.each do |comment| %>
-     <strong><%=comment.message%> from <%=comment.user.full_name%> 
+    </div>
+  
 
-     <%if comment.user == current_user%>
-      <strong>|</strong><%= link_to ' Delete Comment', "/comments/#{comment.id}", method: :delete, data: {confirm: 'Are you sure?' }%>
+   <% post.comments.each do |comment| %>
+      <div class = "col-md-1">
+        
+      </div>
+
+      <div class = "col-md-10">
+          <strong> 
+            <%=comment.user.full_name%> 
+            &nbsp;
+            &nbsp;
+            <small><%=comment.message%></small>
+            <%if comment.user == current_user && comment != post.comments.first%>
+      <%= link_to "/comments/#{comment.id}", method: :delete, data: {confirm: 'Are you sure?' } do%>
+        <%= image_tag 'ios-close-empty.svg', width: 30, height: 30, alt: 'send us your data please'%>
+      <%end%>
      <%end%>
 
-     </strong>  
+          </strong>
+      </div>
+
+      
    <% end %>
- <%end%>
+
  
-
+<br>
   <%= render 'comments/form', :locals => {:post => post, :comment => Comment.new}%>
-
-  <small class = "card-subtitle text-muted">
-  	<% if post.user_liked_post(current_user) %>
-  		<%= link_to 'Unlike', unlike_post_path(post), method: :patch%>
-  	<% else %>
-  		<%= link_to 'Like', like_post_path(post), method: :patch%>
-  	<% end%> 
-  </small>
+  <br>
 </div>

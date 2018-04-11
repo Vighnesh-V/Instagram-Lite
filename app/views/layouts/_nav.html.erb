@@ -1,6 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 head">
   <div class="container">
-    <%= link_to 'Instagram Lite', root_path, class: 'navbar-brand' %>
+
+    <%= link_to root_path, class: 'navbar-brand' do %>
+      <%= image_tag 'ig-logo.png', width: 80, height: 80, alt: 'send us your data please'%> 
+    <%end%>
+
+    <h1>Instagram Lite</h1>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -8,16 +13,42 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><%= link_to 'Users', users_path, class: 'nav-link' %></li>
+        <li class="nav-item">
+        <%= link_to users_path, class: 'nav-link' do %>
+          <%= image_tag 'ios-people-outline.svg', width: 60, height: 60, alt: 'send us your data please'%>
+        <%end%>
+        </li>
 	<%if logged_in?%>
         <%# Only display the current user's name, friend requests and log out links if a user is logged in %>
-          <li class="nav-item"><%= link_to current_user.full_name, current_user, class: 'nav-link' %></li>
-          <li class="nav-item"><%= link_to 'Friend Requests', '/friend_requests', class: 'nav-link' %></li>
-          <li class="nav-item"><%= link_to 'Log out', '/logout', method: :delete, class: 'nav-link' %></li>
+          <li class="nav-item">
+            <%= link_to current_user, class: 'nav-link' do %>
+              <%= image_tag 'ios-gear-outline.svg', width: 60, height: 60, alt: 'send us your data please'%>
+            <%end%> 
+          </li>
+          <li class="nav-item"><%= link_to '/friend_requests', class: 'nav-link' do%>
+              <%= image_tag 'ios-personadd-outline.svg', width: 60, height: 60, alt: 'send us your data please'%>
+            <%end%>
+          </li>
+          <li class= "nav-item"><br></li>
+          <li class = "nav-item"><br></li>
+          <li class="nav-item">
+            <%= link_to '/logout', method: :delete, class: 'nav-link' do%>
+              <%= image_tag 'log-out.svg', width: 30, height: 30, alt: 'send us your data please'%> Logout
+            <%end%>
+          </li>
   	<%else%>
         <%# Only display the sign up and log in links if no user is logged in %>
-          <li class="nav-item"><%= link_to 'Sign up', new_user_path, class: 'nav-link' %></li>
-	  <li class="nav-item"><%= link_to 'Log in', '/login', class: 'nav-link' %></li>
+          <li class="nav-item">
+
+          <%= link_to new_user_path, class: 'nav-link' do%>
+            CREATE AN ACCOUNT
+          <%end%>
+          </li>
+	  <li class="nav-item">
+    <%= link_to '/login', class: 'nav-link' do%>
+         <%= image_tag 'log-in.svg', width: 30, height: 30, alt: 'send us your data please'%> Login
+    <%end%>
+    </li>
 	 <%end%>
       </ul>
     </div>

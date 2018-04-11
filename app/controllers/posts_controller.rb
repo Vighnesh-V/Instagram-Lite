@@ -49,8 +49,9 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = current_user.posts.new(post_params)
+    @top_comment = @post.comments.new(user: current_user, message: post_params[:caption])
     respond_to do |format|
-      if @post.save
+      if @post.save  && @top_comment.save
         format.html { redirect_to root_path, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
