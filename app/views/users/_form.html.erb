@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :handle %>
+    <%= form.text_field :handle, id: :user_handle, class: 'form-control' %>
+  </div>
+
+  <div class="field">
     <%= form.label :first_name %>
     <%= form.text_field :first_name, id: :user_first_name, class: 'form-control' %>
   </div>
@@ -29,6 +34,10 @@
   <div class="field">
     <%= form.label :password %>
     <%= form.password_field :password, id: :user_password, class: 'form-control' %>
+  </div>
+
+  <div class = "field form-group">
+    <%= form.file_field :avatar, as: :user_avatar, class: 'form-control' %>
   </div>
 
   <div class="actions">

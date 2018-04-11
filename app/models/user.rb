@@ -1,5 +1,4 @@
 require 'bcrypt'
-
 class User < ApplicationRecord
   include BCrypt
 
@@ -11,6 +10,8 @@ class User < ApplicationRecord
     @password = Password.create(new_password)
     self.password_hash = @password
   end
+  has_attached_file :avatar, styles: { min: "100x100#" }, default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :userlikes, dependent: :destroy
@@ -25,10 +26,16 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: true
+  validates :handle, presence: true
+  validates :password_hash, presence: true
   validate :good_email
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def retrieve_handle
+  	"@#{handle}"
   end
 
   def send_friend_request(friend)

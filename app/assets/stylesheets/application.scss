@@ -35,7 +35,9 @@ $body-bg: #FAFAFA;
 	font-size: 20px
 }
 
-
+.dp {
+	border-radius: 50%;
+}
 
 .comment_post {
 	padding: 0;
@@ -46,4 +48,8 @@ $body-bg: #FAFAFA;
 
 .header-icon {
 	font-size: 40px
+}
+
+.handle-title {
+	font-color: black;
 }

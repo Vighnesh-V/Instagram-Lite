@@ -1,7 +1,15 @@
 <div class="card" style="width: 35rem;">
 
   <span class="card-title">
-     <strong><%= link_to post.user.full_name, post.user %></strong>
+      <div class = col-md-1>
+        
+      </div>
+      <div class = col-md-11>
+        <strong class = 'handle-title'><%= link_to post.user.retrieve_handle, post.user %>
+      
+      </strong>
+      </div>
+     
   </span>  
 
 
@@ -14,11 +22,11 @@
       <h2 class = 'like-display'>
     <small class = "card-subtitle text-muted">
     <% if post.user_liked_post(current_user) %>
-      <%= link_to unlike_post_path(post), method: :patch do%>
+      <%= link_to unlike_post_path(post), method: :patch, remote: true do%>
         <%= image_tag 'ios-heart.svg', width: 30, height: 30, alt: 'send us your data please'%>
       <%end%>
     <% else %>
-      <%= link_to like_post_path(post), method: :patch do%>
+      <%= link_to like_post_path(post), method: :patch, remote: true do%>
         <%= image_tag 'ios-heart-outline.svg', width: 30, height: 30, alt: 'send us your data please'%>
       <%end%>
     <% end%> 
@@ -44,9 +52,9 @@
     </div>
 
     <div class = "col-md-11">
-      <small class="card-subtitle text-muted">Updated <%= time_ago_in_words(post.updated_at) %> ago |
+      <small class="card-subtitle text-muted">Updated <%= time_ago_in_words(post.updated_at) %> ago 
   <% if current_user == post.user %>
-    <%= link_to post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' do%>
+    | <%= link_to post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link' do%>
       <%= image_tag 'ios-trash-outline.svg', width: 30, height: 30, alt: 'send us your data please'%>
     <%end%>
   <% end %>
@@ -62,11 +70,11 @@
 
       <div class = "col-md-10">
           <strong> 
-            <%=comment.user.full_name%> 
+            <%=comment.user.retrieve_handle if !comment.message.empty?%> 
             &nbsp;
             &nbsp;
-            <small><%=comment.message%></small>
-            <%if comment.user == current_user && comment != post.comments.first%>
+            <small><%=comment.message if !comment.message.empty?%></small>
+            <%if comment.user == current_user && !comment.message.empty?%>
       <%= link_to "/comments/#{comment.id}", method: :delete, data: {confirm: 'Are you sure?' } do%>
         <%= image_tag 'ios-close-empty.svg', width: 30, height: 30, alt: 'send us your data please'%>
       <%end%>
@@ -83,3 +91,6 @@
   <%= render 'comments/form', :locals => {:post => post, :comment => Comment.new}%>
   <br>
 </div>
+<br>
+<br>
+<br>
