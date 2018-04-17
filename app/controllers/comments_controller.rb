@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:destroy]
-
+  
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
   # def update

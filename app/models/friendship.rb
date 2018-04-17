@@ -3,7 +3,7 @@ class Friendship < ApplicationRecord
   belongs_to :friend, class_name: 'User'
 
   validates :state, presence: true, inclusion: { in: ['accepted', 'pending', 'requested'] }
-  validates :friend, uniqueness: true
+  #validates :friend, uniqueness: true
   validate :self_friend
 
   private

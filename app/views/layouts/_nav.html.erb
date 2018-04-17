@@ -5,7 +5,9 @@
       <%= image_tag 'ig-logo.png', width: 80, height: 80, alt: 'send us your data please'%> 
     <%end%>
 
-    <h1>Instagram Lite</h1>
+    <%= link_to root_path, class: 'navbar-brand' do %>
+      <%= image_tag 'ig-text.svg', width: 200, height: 80, alt: 'send us your data please'%> 
+    <%end%>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

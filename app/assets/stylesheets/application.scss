@@ -15,13 +15,27 @@
  */
 
  $theme-colors: (
-  "primary": #F08080
+  "primary": #77A7A7
+
 );
 
 $body-bg: #FAFAFA;
 
+
 @import "bootstrap";
 
+.avatar-display {
+	border-radius: 50%;
+	
+}
+
+
+nav {
+	padding: 0;
+	background: none;
+	border: none;
+	border-bottom: solid thin #e6e6e6;
+}
 
 .nav-item {
   font-size: 13px

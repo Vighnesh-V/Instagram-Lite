@@ -3,13 +3,14 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
-  get '/posts/:id', to: 'posts#show'
+  
   delete '/comments/:id', to: 'comments#destroy'
   resources :posts do
     member do
-      patch 'like'
-      patch 'unlike'
-      post 'new_comment'
+      patch 'toggle_like_feed'
+      patch 'toggle_like_post'
+      post 'new_comment_feed'
+      post 'new_comment_post'
     end
   end
   

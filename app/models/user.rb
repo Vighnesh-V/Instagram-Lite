@@ -10,7 +10,7 @@ class User < ApplicationRecord
     @password = Password.create(new_password)
     self.password_hash = @password
   end
-  has_attached_file :avatar, styles: { min: "100x100#" }, default_url: "/images/:style/missing.png"
+  has_attached_file :avatar, styles: { medium: "150x150>", thumb: "30x30>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -41,7 +41,7 @@ class User < ApplicationRecord
   def send_friend_request(friend)
     return unless !Friendship.exists?(user: self, friend: friend) && !Friendship.exists?(user: friend, friend: self)
     Friendship.create(user: self, friend: friend, state: 'requested')
-    Friendship.create(user: friend, friend: self, state: 'pending')
+    Friendship.create(user: User.find(friend.id), friend: self, state: 'pending')
   end
 
   def accept_friend_request(friend)

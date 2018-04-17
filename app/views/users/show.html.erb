@@ -1,20 +1,80 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>First name:</strong>
-  <%= @user.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @user.last_name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
 <%= link_to_if current_user == @user, "Edit", edit_user_path(@user)%>
 |
 <%= link_to 'Back', users_path %>
+
+ <%if @user.avatar.exists?%>
+    <%= image_tag @user.avatar.url(:medium), width: '152', height: '152', class: 'avatar-display' %>
+<%end%>
+<h5>
+	<small>
+		 <%=@user.full_name%> | @<%=@user.handle%> | <%=@user.email%>
+	</small>
+</h5>
+<div class = "container">
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-1"><a class="carousel-control-prev" href="#carouselPostControls" role="button" data-slide="prev">
+    <%= image_tag 'arrow-left-b.svg', width: 30, height: 30, alt: 'send us your data please'%>
+  </a></div>
+  <div class="col-md-6">	<div id = "carouselPostControls" class = "carousel slide" data-ride="carousel">
+	<div class = "carousel-inner">
+		<% @user.posts.each do |post| %>
+			<%if @user.posts.first == post%>
+				<div class = "carousel-item active">
+					<%= link_to post, method: :get do%>
+     	<%= render 'posts/post', post: post, url: "/posts/#{post.id}/new_comment_feed" %>
+    	<%end%>
+				</div>
+			<%else %>
+				<div class = "carousel-item">
+					<%= link_to post, method: :get do%>
+     	<%= render 'posts/post', post: post,  url: "/posts/#{post.id}/new_comment_feed"%>
+    	<%end%>
+				</div>
+			<%end%>
+		<% end %>
+
+	</div>
+
+
+</div></div>
+  <div class="col-md-1"><a class="carousel-control-next pull-left" href="#carouselPostControls" role="button" data-slide="next">
+    <%= image_tag 'arrow-right-b.svg', width: 30, height: 30, alt: 'send us your data please'%>
+
+  </a></div>
+  <div class="col-md-2"></div>
+</div>	
+</div>
+
+<br>
+<br>
+
+<div class="row">
+
+    <div class="col-md">
+      One of three columns
+      <a class="carousel-control-prev" href="#carouselPostControls" role="button" data-slide="prev">
+    <%= image_tag 'arrow-left-c.svg', width: 30, height: 30, alt: 'send us your data please'%>
+  </a>
+    </div>
+    <div class="col-md">
+      
+    </div>
+    <div class="col-md">
+      <a class="carousel-control-next" href="#carouselPostControls" role="button" data-slide="next">
+    <%= image_tag 'arrow-right-c.svg', width: 30, height: 30, alt: 'send us your data please'%>
+
+  </a>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+

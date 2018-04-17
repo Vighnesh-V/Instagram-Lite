@@ -1,0 +1,27 @@
+<div class="input-group-append">
+        <%= button_tag( :class => "button_green") do %>
+  <%= image_tag 'ios-paperplane.svg', width: 40, height: 40, alt: 'send us your data please'%>
+<% end %>
+      </div>
+
+      .button_green {
+	background-color: #89cff0;
+	border: none;
+}
+
+<div class = "col-md-1">
+      <strong> <%=comment.user.full_name%> </strong>
+    </div>
+
+    
+     <div class = "col-md-11">
+       <small> <%=comment.message%> 
+
+     <%if comment.user == current_user && comment != post.comments.first%>
+      <%= link_to "/comments/#{comment.id}", method: :delete, data: {confirm: 'Are you sure?' } do%>
+        <%= image_tag 'ios-close-empty.svg', width: 30, height: 30, alt: 'send us your data please'%>
+      <%end%>
+     <%end%>
+     </small>
+
+     </div>

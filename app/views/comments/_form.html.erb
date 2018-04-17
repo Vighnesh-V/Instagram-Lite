@@ -1,4 +1,4 @@
-<%= form_with(model: locals[:comment], url: new_comment_post_path(locals[:post]), locals: true) do |form| %>
+<%= form_with(model: locals[:comment], url: locals[:url], locals: true) do |form| %>
   <% if locals[:comment].errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(locals[:comment].errors.count, "error") %> prohibited this comment from being saved:</h2>

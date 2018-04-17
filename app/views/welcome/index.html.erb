@@ -12,7 +12,7 @@
         <p class="text-center">You haven't uploaded any images yet!</p>
       <% else %>
         <% @posts.each do |post| %>
-          <%= render 'posts/post', post: post %>
+          <%= render 'posts/post', post: post, url: "/posts/#{post.id}/new_comment_feed", like_path: "/posts/#{post.id}/toggle_like_feed" %>
 
         <% end %>
       <% end %>

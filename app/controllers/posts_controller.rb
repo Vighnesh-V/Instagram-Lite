@@ -1,12 +1,24 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :like, :unlike, :new_comment]
+  before_action :set_post, only: [:show, :new, :edit, :update, :destroy, :toggle_like_feed, :toggle_like_post, :new_comment_feed, :new_comment_post]
 
-
-  def new_comment
+  def new_comment_feed
     @comment = @post.comments.new(user: current_user, message: comment_params[:message])
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to root_path, notice: 'Comment was successfully created.' }
+        format.html { redirect_to root_path(anchor: "post_#{@post.id}"), notice: 'Comment was successfully created.' }
+        format.json { render :show, status: :created, location: @comment }
+      else
+        format.html { render :new }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def new_comment_post
+    @comment = @post.comments.new(user: current_user, message: comment_params[:message])
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to @post, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new }
@@ -35,16 +47,17 @@ class PostsController < ApplicationController
   def edit
   end
 
-  #POST/ Patch : /posts/1/like_post
-  def like
-    @post.like_post(current_user)
-    redirect_back(fallback_location: root_path)
+  def toggle_like_feed
+    @post.toggle_like(current_user)
+    redirect_to root_path(anchor: "post_#{@post.id}")
   end
 
-  def unlike
-    @post.unlike_post(current_user)
-    redirect_back(fallback_location: root_path)
+  def toggle_like_post
+    @post.toggle_like(current_user)
+    redirect_to post_path(@post)
   end
+
+ 
   # POST /posts
   # POST /posts.json
   def create
