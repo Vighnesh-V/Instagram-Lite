@@ -37,11 +37,11 @@
       <h2 class = 'like-display'>
     <small class = "card-subtitle text-muted">
     <% if post.user_liked_post(current_user) %>
-      <%= link_to like_path, method: :patch do%>
+      <%= link_to toggle_like_feed_post_path(post), method: :patch do%>
         <%= image_tag 'ios-heart.svg', width: 30, height: 30, alt: 'send us your data please'%>
       <%end%>
     <% else %>
-      <%= link_to like_path, method: :patch do%>
+      <%= link_to toggle_like_feed_post_path(post), method: :patch do%>
         <%= image_tag 'ios-heart-outline.svg', width: 30, height: 30, alt: 'send us your data please'%>
       <%end%>
     <% end%> 
