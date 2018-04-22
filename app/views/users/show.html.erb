@@ -24,13 +24,13 @@
 			<%if @user.posts.first == post%>
 				<div class = "carousel-item active">
 					<%= link_to post, method: :get do%>
-     	<%= render 'posts/post', post: post, url: "/posts/#{post.id}/new_comment_feed" %>
+     	<%= render 'posts/post', post: post, url: "/posts/#{post.id}/new_comment_user", like_path: "/posts/#{post.id}/toggle_like_user" %>
     	<%end%>
 				</div>
 			<%else %>
 				<div class = "carousel-item">
 					<%= link_to post, method: :get do%>
-     	<%= render 'posts/post', post: post,  url: "/posts/#{post.id}/new_comment_feed"%>
+     	<%= render 'posts/post', post: post,  url: "/posts/#{post.id}/new_comment_user", like_path: "/posts/#{post.id}/toggle_like_user"%>
     	<%end%>
 				</div>
 			<%end%>

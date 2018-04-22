@@ -9,7 +9,9 @@ Rails.application.routes.draw do
     member do
       patch 'toggle_like_feed'
       patch 'toggle_like_post'
+      patch 'toggle_like_user'
       post 'new_comment_feed'
+      post 'new_comment_user'
       post 'new_comment_post'
     end
   end

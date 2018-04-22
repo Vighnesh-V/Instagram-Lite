@@ -17,7 +17,7 @@
           <%= image_tag post.user.avatar.url(:thumb), width: '30', height: '30', class: 'avatar-display' %> 
           <%end%>
           <%end%>
-     &nbsp; <%= link_to "banter", post %>
+     &nbsp; <%= link_to "#{post.user.retrieve_handle}", post %>
   
 
       
@@ -37,11 +37,11 @@
       <h2 class = 'like-display'>
     <small class = "card-subtitle text-muted">
     <% if post.user_liked_post(current_user) %>
-      <%= link_to toggle_like_feed_post_path(post), method: :patch do%>
+      <%= link_to like_path, method: :patch do%>
         <%= image_tag 'ios-heart.svg', width: 30, height: 30, alt: 'send us your data please'%>
       <%end%>
     <% else %>
-      <%= link_to toggle_like_feed_post_path(post), method: :patch do%>
+      <%= link_to like_path, method: :patch do%>
         <%= image_tag 'ios-heart-outline.svg', width: 30, height: 30, alt: 'send us your data please'%>
       <%end%>
     <% end%> 

@@ -1,11 +1,24 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :new, :edit, :update, :destroy, :toggle_like_feed, :toggle_like_post, :new_comment_feed, :new_comment_post]
+  before_action :set_post, only: [:show, :new, :edit, :update, :destroy, :toggle_like_feed, :toggle_like_user, :toggle_like_post, :new_comment_feed, :new_comment_user, :new_comment_post]
 
   def new_comment_feed
     @comment = @post.comments.new(user: current_user, message: comment_params[:message])
     respond_to do |format|
       if @comment.save
         format.html { redirect_to root_path(anchor: "post_#{@post.id}"), notice: 'Comment was successfully created.' }
+        format.json { render :show, status: :created, location: @comment }
+      else
+        format.html { render :new }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def new_comment_user
+    @comment = @post.comments.new(user: current_user, message: comment_params[:message])
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to "/users/#{@post.user.id}", notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new }
@@ -50,6 +63,11 @@ class PostsController < ApplicationController
   def toggle_like_feed
     @post.toggle_like(current_user)
     redirect_to root_path(anchor: "post_#{@post.id}")
+  end
+
+  def toggle_like_user
+    @post.toggle_like(current_user)
+    redirect_to "/users/#{@post.user.id}"
   end
 
   def toggle_like_post
