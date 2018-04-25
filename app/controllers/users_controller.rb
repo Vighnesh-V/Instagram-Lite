@@ -1,6 +1,7 @@
+# Users Controller
 class UsersController < ApplicationController
-  before_action :set_user, except: [:index, :new, :create, :friend_requests]
-  before_action :authenticate_user, except: [:index, :show, :new, :create]
+  before_action :set_user, except: %I[index new create friend_requests]
+  before_action :authenticate_user, except: %I[index show new create]
 
   # GET /users
   # GET /users.json
@@ -10,8 +11,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
-  def show
-  end
+  def show; end
 
   # GET /users/new
   def new
@@ -19,8 +19,7 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /users
   # POST /users.json
@@ -44,7 +43,6 @@ class UsersController < ApplicationController
     else
       render :edit
     end
-
   end
 
   # DELETE /users/1
@@ -57,8 +55,7 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def friend_requests
-  end
+  def friend_requests; end
 
   def send_friend_request
     current_user.send_friend_request(@user)
@@ -76,13 +73,16 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :handle, :avatar)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet.
+  def user_params
+    params.require(:user)
+          .permit(:first_name, :last_name, :email, :password, :handle,
+                  :avatar)
+  end
 end

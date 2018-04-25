@@ -15,6 +15,13 @@
           <%if post.user.avatar.exists? %>
           <%=link_to post.user  do%>
           <%= image_tag post.user.avatar.url(:thumb), width: '30', height: '30', class: 'avatar-display' %> 
+
+          <%end%>
+
+          <%else%>
+          <%=link_to post.user  do%>
+          <%= image_tag 'person.svg', width: '30', height: '30', class: 'avatar-display' %> 
+
           <%end%>
           <%end%>
      &nbsp; <%= link_to "#{post.user.retrieve_handle}", post %>

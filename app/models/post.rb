@@ -1,16 +1,20 @@
+# Post
 class Post < ApplicationRecord
   belongs_to :user
-  has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
-  validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+  has_attached_file :image,
+                    styles: { medium: '300x300>', thumb: '100x100>' },
+                    default_url: '/images/:style/missing.png'
+  validates_attachment_content_type :image, content_type: %r{\Aimage\/.*\z}
   validates :image, presence: true
   has_many :comments, dependent: :destroy
   has_many :userlikes, dependent: :destroy
   has_many :likes,
-  -> { where(userlikes: {state: 'liked'})}, through: :userlikes
+           -> { where(userlikes: { state: 'liked' }) },
+           through: :userlikes
 
   def like_post(liker)
-  	return if Userlike.exists?(user: liker, post: self, state: 'liked')
-  	Userlike.create(user: liker, post: self, state: 'liked')
+    return if Userlike.exists?(user: liker, post: self, state: 'liked')
+    Userlike.create(user: liker, post: self, state: 'liked')
   end
 
   def unlike_post(liker)
@@ -29,5 +33,4 @@ class Post < ApplicationRecord
   def user_liked_post(liker)
     Userlike.exists?(user: liker, post: self, state: 'liked')
   end
-
 end

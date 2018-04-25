@@ -16,12 +16,17 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-        <%= link_to users_path, class: 'nav-link' do %>
-          <%= image_tag 'ios-people-outline.svg', width: 60, height: 60, alt: 'send us your data please'%>
+            <%if !logged_in?%>
+              <%= link_to users_path, class: 'nav-link' do %>
+          <%= image_tag 'ios-people.svg', width: 60, height: 60, alt: 'send us your data please'%>
         <%end%>
+            <%end%>
         </li>
 	<%if logged_in?%>
         <%# Only display the current user's name, friend requests and log out links if a user is logged in %>
+          <%= link_to users_path, class: 'nav-link' do %>
+          <%= image_tag 'ios-people-outline.svg', width: 60, height: 60, alt: 'send us your data please'%>
+        <%end%>
           <li class="nav-item">
             <%= link_to current_user, class: 'nav-link' do %>
               <%= image_tag 'ios-gear-outline.svg', width: 60, height: 60, alt: 'send us your data please'%>
@@ -44,7 +49,7 @@
           <li class="nav-item">
 
           <%= link_to new_user_path, class: 'nav-link' do%>
-            CREATE AN ACCOUNT
+              <%= image_tag 'ios-personadd.svg', width: 60, height: 60, alt: 'send us your data please'%>
           <%end%>
           </li>
 	  <li class="nav-item">

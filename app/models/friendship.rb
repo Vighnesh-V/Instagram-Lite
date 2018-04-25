@@ -1,9 +1,11 @@
+# Friendship
 class Friendship < ApplicationRecord
   belongs_to :user
   belongs_to :friend, class_name: 'User'
 
-  validates :state, presence: true, inclusion: { in: ['accepted', 'pending', 'requested'] }
-  #validates :friend, uniqueness: true
+  validates :state,
+            presence: true,
+            inclusion: { in: %w[accepted pending requested] }
   validate :self_friend
 
   private

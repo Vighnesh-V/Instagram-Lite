@@ -1,6 +1,13 @@
-<h1>Editing User</h1>
 
-<%= render 'form', user: @user %>
+<div class = "row">
+	<div class = "col-md-3"></div>
+	<div class = "col-md-6">
+		<h1>Update Account Settings</h1>
+		<%= render 'form', user: @user %>
+	</div>
+	<div class = "col-md-3"></div>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+</div>
+
+
+<%= link_to 'Back', @user %>
