@@ -20,5 +20,4 @@ AllCops:
     - 'db/**/*'
     - 'spec/**/*'
     - 'vendor/**/*'
-    - 'test/**/*'
     - 'Gemfile'
