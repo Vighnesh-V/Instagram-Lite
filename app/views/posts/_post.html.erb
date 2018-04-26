@@ -24,7 +24,7 @@
 
           <%end%>
           <%end%>
-     &nbsp; <%= link_to "#{post.user.retrieve_handle}", post %>
+     &nbsp; <strong><%= link_to "#{post.user.retrieve_handle}", post %></strong>
   
 
       
@@ -35,7 +35,7 @@
   </span>  
 
 <br>
-    <%= image_tag post.image.url(:medium), width: '300', height: '300', class: 'card-img display'%>
+    <%= image_tag post.image.url, width: '600', height: '600', class: 'card-img display'%>
 
   
   
@@ -92,7 +92,8 @@
 
       <div class = "col-md-10">
           <strong> 
-            <%=comment.user.retrieve_handle if !comment.message.empty?%> 
+            <%=link_to_if !comment.message.empty?, comment.user.retrieve_handle, comment.user%>
+            
             &nbsp;
             &nbsp;
             <small><%=comment.message if !comment.message.empty?%></small>
